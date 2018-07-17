@@ -70,9 +70,6 @@ class Prediction:
 
 def Main():
     laLiga = Prediction('Strikers_Cleaned.csv')
-    npArr = np.array(laLiga.dataset)
-
-
 
     laLiga.cleanCSV()
 
