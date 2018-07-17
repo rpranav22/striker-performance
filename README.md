@@ -1,4 +1,4 @@
-# Striker Performance
+# Football Striker Performance in Europe
 Trying to predict the number of goals scored by specific strikers in the following season based on performance data from the last 3 years. 
 Run StrikerPerformance.py with striker name.
 ## Future Work
