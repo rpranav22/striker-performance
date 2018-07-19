@@ -1,8 +1,9 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.cross_validation import train_test_split
-import numpy as np
+from sklearn.externals import joblib
 from sklearn import ensemble
+import sys
 
 class Prediction:
     def __init__(self, path):
@@ -53,12 +54,13 @@ class Prediction:
                                                  learning_rate=0.1, loss='ls')
 
         clf.fit(x_train, y_train)
-
+        joblib.dump(clf, 'GBR.pkl')
         return clf
 
     def predictGoalsbyName(self, name, clf):
         new = self.dataset.set_index(['name'])
         df = new.loc[name].to_frame()
+        # df = df.drop(['17/18 minutes'])
         actual = df.iloc[4][0]
 
         df = df.drop(['17/18 goals'])
@@ -67,6 +69,7 @@ class Prediction:
         predicted = str(clf.predict(df))
         print("\nPredicted goals for {0} in 2017/18: {1}".format(name, predicted))
         print("Actual: ", actual)
+        return predicted
 
 def Main():
     laLiga = Prediction('Strikers_Cleaned.csv')
@@ -78,12 +81,22 @@ def Main():
     # reg = LinearRegression()
     # reg.fit(x_train, y_train)
     # print("Score: ", reg.score(x_test, y_test))
+    # player_name = sys.argv[1]
+    # print("input ", player_name)
+    # laLiga.trainGBR(x_train, y_train)
 
-    clf = laLiga.trainGBR(x_train, y_train)
-
+    clf = joblib.load('GBR.pkl')
+    print(type(clf))
     gbr = clf.score(x_test, y_test)
 
-    laLiga.predictGoalsbyName('Luka Djordjevic', clf)
+    pred_goals = []
+    for name in laLiga.dataset['name']:
+        print(str(name))
+
+    predicted = laLiga.predictGoalsbyName("Isaac Success", clf)
+    laLiga.predictGoalsbyName("Harry Kane", clf)
+    laLiga.predictGoalsbyName("Marcus Rashford", clf)
+
     print("\nGBR score: ", gbr)
 
 if __name__ == '__main__' :
