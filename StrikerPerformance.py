@@ -1,8 +1,11 @@
 import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LinearRegression
 from sklearn.cross_validation import train_test_split
 from sklearn.externals import joblib
 from sklearn import ensemble
+from sklearn.feature_selection import SelectKBest, chi2, f_regression, mutual_info_classif
+import numpy as np
 import sys
 
 class Prediction:
@@ -29,6 +32,11 @@ class Prediction:
         y_train = y_train.fillna(0)
         x_test = x_test.fillna(0)
         y_test = y_test.fillna(0)
+
+
+        x_new = SelectKBest(f_regression,k=4 ).fit_transform(x_train, y_train)
+        print(x_train.shape)
+        print(x_new)
 
         print(train1.head())
 
@@ -59,22 +67,42 @@ class Prediction:
 
     def predictGoalsbyName(self, name, clf):
         new = self.dataset.set_index(['name'])
+        # print(type(new))
         df = new.loc[name].to_frame()
-        # df = df.drop(['17/18 minutes'])
         actual = df.iloc[4][0]
 
         df = df.drop(['17/18 goals'])
         df = df.transpose()
-        print(df)
-        predicted = str(clf.predict(df))
+        # print(df)
+        df = df.fillna(0)
+
+        print("here: ",df)
+        predicted = clf.predict(df)
+        predicted = predicted[0].item()
         print("\nPredicted goals for {0} in 2017/18: {1}".format(name, predicted))
         print("Actual: ", actual)
         return predicted
 
+    def sortByGoals(self, clf, col='predicted'):
+        pred_goals = []
+        for name in self.dataset['name']:
+            n = str(name)
+            predicted = self.predictGoalsbyName(n, clf)
+
+            pred_goals.append(predicted)
+        df = pd.Series(pred_goals)
+        self.dataset['predicted'] = df.values
+        sorted_df = self.dataset.sort_values([col], ascending=False)
+        print(sorted_df.head())
+        print(sorted_df.index[sorted_df['name'] == 'Cristiano Ronaldo'])
+        sorted_df = sorted_df.reset_index()
+        print(sorted_df.head(25))
+        return
+
 def Main():
     laLiga = Prediction('Strikers_Cleaned.csv')
 
-    laLiga.cleanCSV()
+    # laLiga.cleanCSV()
 
     x_train, y_train, x_test, y_test = laLiga.trainSet()
 
@@ -86,17 +114,12 @@ def Main():
     # laLiga.trainGBR(x_train, y_train)
 
     clf = joblib.load('GBR.pkl')
-    print(type(clf))
+    # print(type(clf))
     gbr = clf.score(x_test, y_test)
 
-    pred_goals = []
-    for name in laLiga.dataset['name']:
-        print(str(name))
 
-    predicted = laLiga.predictGoalsbyName("Isaac Success", clf)
-    laLiga.predictGoalsbyName("Harry Kane", clf)
-    laLiga.predictGoalsbyName("Marcus Rashford", clf)
-
+    laLiga.sortByGoals(clf)
+    # laLiga.predictGoalsbyName("Eden Hazard", clf)
     print("\nGBR score: ", gbr)
 
 if __name__ == '__main__' :

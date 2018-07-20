@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0230dc4-4806-4f90-b51b-00dcbdf0d623" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.~lock.Strikers_Cleaned.csv#" beforeDir="false" afterPath="$PROJECT_DIR$/.~lock.Strikers_Cleaned.csv#" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GBR.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/GBR.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StrikerPerformance.py" beforeDir="false" afterPath="$PROJECT_DIR$/StrikerPerformance.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Strikers_Cleaned.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Strikers_Cleaned.csv" afterDir="false" />
     </list>
@@ -19,8 +19,8 @@
       <file leaf-file-name="StrikerPerformance.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StrikerPerformance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+            <state relative-caret-position="1187">
+              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -197,10 +197,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/StrikerPerformance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+        <state relative-caret-position="1187">
+          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
