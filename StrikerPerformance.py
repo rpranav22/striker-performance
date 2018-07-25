@@ -76,11 +76,11 @@ class Prediction:
         # print(df)
         df = df.fillna(0)
 
-        print("here: ",df)
+        # print("here: ",df)
         predicted = clf.predict(df)
         predicted = predicted[0].item()
-        print("\nPredicted goals for {0} in 2017/18: {1}".format(name, predicted))
-        print("Actual: ", actual)
+        # print("\nPredicted goals for {0} in 2017/18: {1}".format(name, predicted))
+        # print("Actual: ", actual)
         return predicted
 
     def sortByGoals(self, clf, col='predicted'):
