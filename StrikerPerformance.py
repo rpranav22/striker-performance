@@ -20,7 +20,7 @@ class Prediction:
             self.features.append(lab)
 
         train1 = self.dataset.sort_values('16/17 goals', ascending=False)
-        print(train1.head(n=4))
+        print(self.dataset.head(20))
         train1 = self.dataset.drop(['17/18 goals', 'name'], axis=1)
 
         labels = self.dataset['17/18 goals']
@@ -79,8 +79,8 @@ class Prediction:
         # print("here: ",df)
         predicted = clf.predict(df)
         predicted = predicted[0].item()
-        # print("\nPredicted goals for {0} in 2017/18: {1}".format(name, predicted))
-        # print("Actual: ", actual)
+        print("\nPredicted goals for {0} in 2017/18: {1}".format(name, predicted))
+        print("Actual: ", actual)
         return predicted
 
     def sortByGoals(self, clf, col='predicted'):
